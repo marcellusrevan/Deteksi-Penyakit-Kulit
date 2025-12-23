@@ -9,6 +9,17 @@ DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 binary_classes = ["Jinak", "Ganas"]
 
+disease_classes = [
+    "Actinic keratosis",
+    "Basal cell carcinoma",
+    "Benign keratosis",
+    "Dermatofibroma",
+    "Melanocytic nevus",
+    "Melanoma",
+    "Squamous cell carcinoma",
+    "Vascular lesion"
+]
+
 disease_info = {
     "Actinic keratosis": "Lesi kulit akibat paparan sinar UV, berpotensi berkembang menjadi kanker kulit.",
     "Basal cell carcinoma": "Kanker kulit paling umum, tumbuh lambat dan jarang menyebar.",
