@@ -5,4 +5,9 @@ torchvision==0.24.1
 torchaudio==2.9.1
 Pillow==12.0.0
 numpy==2.4.0
+torch==2.0.1+cpu
+torchvision==0.15.2+cpu
+-f https://download.pytorch.org/whl/torch_stable.html
+streamlit==1.52.2
+
 
