@@ -164,3 +164,17 @@ if image is not None:
             f"🟢 **Jenis Penyakit:** {result['disease_label']}  \n"
             f"Confidence: {result['disease_conf']:.2f}%"
         )
+        
+# ===== DISEASE =====
+if result["disease_label"] in malignant_diseases:
+    st.error(
+        f"🔴 **Jenis Penyakit:** {result['disease_label']}  \n"
+        f"Confidence: {result['disease_conf']:.2f}%  \n"
+        f"Info: {disease_info[result['disease_label']]}"
+    )
+else:
+    st.success(
+        f"🟢 **Jenis Penyakit:** {result['disease_label']}  \n"
+        f"Confidence: {result['disease_conf']:.2f}%  \n"
+        f"Info: {disease_info[result['disease_label']]}"
+    )
