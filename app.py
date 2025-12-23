@@ -137,21 +137,6 @@ if image is not None:
     with st.spinner("Menganalisis citra..."):
         result = predict(image)
 
-    # ===== DISEASE =====
-if result["disease_label"] in malignant_diseases:
-    st.error(
-        f"🔴 **Jenis Penyakit:** {result['disease_label']}  \n"
-        f"Confidence: {result['disease_conf']:.2f}%  \n"
-        f"Info: {disease_info[result['disease_label']]}"
-    )
-else:
-    st.success(
-        f"🟢 **Jenis Penyakit:** {result['disease_label']}  \n"
-        f"Confidence: {result['disease_conf']:.2f}%  \n"
-        f"Info: {disease_info[result['disease_label']]}"
-    )
-
-
     # ===== DECISION FUSION =====
     if result["disease_label"] in benign_diseases:
         final_status = "Jinak"
@@ -167,6 +152,20 @@ else:
         st.error("🔴 **Status Kanker: GANAS**")
     else:
         st.success("🟢 **Status Kanker: JINAK**")
+        
+        # ===== DISEASE =====
+if result["disease_label"] in malignant_diseases:
+    st.error(
+        f"🔴 **Jenis Penyakit:** {result['disease_label']}  \n"
+        f"Confidence: {result['disease_conf']:.2f}%  \n"
+        f"Info: {disease_info[result['disease_label']]}"
+    )
+else:
+    st.success(
+        f"🟢 **Jenis Penyakit:** {result['disease_label']}  \n"
+        f"Confidence: {result['disease_conf']:.2f}%  \n"
+        f"Info: {disease_info[result['disease_label']]}"
+    )
 
     # ===== DISEASE =====
     if result["disease_label"] in malignant_diseases:
