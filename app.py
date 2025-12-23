@@ -9,16 +9,16 @@ DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 binary_classes = ["Jinak", "Ganas"]
 
-disease_classes = [
-    "Actinic keratosis",
-    "Basal cell carcinoma",
-    "Benign keratosis",
-    "Dermatofibroma",
-    "Melanocytic nevus",
-    "Melanoma",
-    "Squamous cell carcinoma",
-    "Vascular lesion"
-]
+disease_info = {
+    "Actinic keratosis": "Lesi kulit akibat paparan sinar UV, berpotensi berkembang menjadi kanker kulit.",
+    "Basal cell carcinoma": "Kanker kulit paling umum, tumbuh lambat dan jarang menyebar.",
+    "Benign keratosis": "Lesi kulit jinak, tidak berbahaya.",
+    "Dermatofibroma": "Benjolan kulit jinak yang biasanya muncul akibat luka kecil atau gigitan serangga.",
+    "Melanocytic nevus": "Tahi lalat biasa, biasanya jinak namun perlu pemantauan.",
+    "Melanoma": "Kanker kulit agresif yang bisa menyebar, butuh penanganan cepat.",
+    "Squamous cell carcinoma": "Kanker kulit yang bisa menyebar, sering muncul di area yang terpapar sinar matahari.",
+    "Vascular lesion": "Lesi pembuluh darah kulit, biasanya jinak dan tidak berbahaya."
+}
 
 benign_diseases = [
     "Benign keratosis",
@@ -127,12 +127,16 @@ if image is not None:
         result = predict(image)
 
     # ===== DECISION FUSION =====
-    if result["disease_label"] in benign_diseases:
-        final_status = "Jinak"
-        final_color = "success"
-    else:
-        final_status = "Ganas"
-        final_color = "error"
+if result["disease_label"] in benign_diseases:
+    final_status = "Jinak"
+    final_color = "success"
+else:
+    final_status = "Ganas"
+    final_color = "error"
+
+# Cek konsistensi binary vs multiclass
+binary_ok = (result["binary_label"] == final_status)
+
 
     st.markdown("## 🧾 Hasil Deteksi Akhir")
 
@@ -154,4 +158,6 @@ if image is not None:
             f"Confidence: {result['disease_conf']:.2f}%"
         )
 
-
+# ===== CEK KONSISTENSI =====
+if not binary_ok:
+    st.warning("⚠️ Prediksi binary dan penyakit tidak konsisten. Mohon konsultasikan ke dokter untuk pemeriksaan lebih lanjut.")
