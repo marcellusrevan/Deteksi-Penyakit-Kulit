@@ -145,9 +145,6 @@ if image is not None:
         final_status = "Ganas"
         final_color = "error"
 
-    # Cek konsistensi binary vs multiclass
-    binary_ok = (result["binary_label"] == final_status)
-
     st.markdown("## 🧾 Hasil Deteksi Akhir")
 
     # ===== FINAL STATUS =====
@@ -166,11 +163,4 @@ if image is not None:
         st.success(
             f"🟢 **Jenis Penyakit:** {result['disease_label']}  \n"
             f"Confidence: {result['disease_conf']:.2f}%"
-        )
-
-    # ===== CEK KONSISTENSI =====
-    if not binary_ok:
-        st.warning(
-            "⚠️ Prediksi penyakit tidak konsisten. "
-            "Mohon konsultasikan ke dokter untuk pemeriksaan lebih lanjut."
         )
