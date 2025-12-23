@@ -5,14 +5,8 @@ import torch.nn.functional as F
 from torchvision import models, transforms
 from PIL import Image
 
-# =========================
-# DEVICE
-# =========================
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
-# =========================
-# CLASS NAMES (WAJIB SESUAI DATASET)
-# =========================
 binary_classes = ["Jinak", "Ganas"]
 
 disease_classes = [
@@ -26,9 +20,6 @@ disease_classes = [
     "Vascular lesion"
 ]
 
-# =========================
-# DISEASE CATEGORY (MATCH CASE)
-# =========================
 benign_diseases = [
     "Benign keratosis",
     "Dermatofibroma",
@@ -43,9 +34,6 @@ malignant_diseases = [
     "Squamous cell carcinoma"
 ]
 
-# =========================
-# LOAD MODELS
-# =========================
 @st.cache_resource
 def load_models():
     # Binary
@@ -75,9 +63,7 @@ def load_models():
 
 model_binary, model_multi = load_models()
 
-# =========================
-# TRANSFORM
-# =========================
+
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
@@ -87,9 +73,7 @@ transform = transforms.Compose([
     )
 ])
 
-# =========================
-# PREDICT
-# =========================
+
 def predict(image):
     img = transform(image).unsqueeze(0).to(DEVICE)
 
@@ -116,11 +100,11 @@ def predict(image):
 # =========================
 st.title("DETEKSI KANKER KULIT")
 
-# 📸 Kamera di atas
+
 st.markdown("### 📸 Ambil Foto Kamera")
 camera_file = st.camera_input("")
 
-# 📂 Upload di bawah
+
 st.markdown("### 📂 Unggah Gambar")
 uploaded_file = st.file_uploader(
     "Unggah citra kulit (JPG / PNG)",
