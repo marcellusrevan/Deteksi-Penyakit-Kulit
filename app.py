@@ -145,7 +145,7 @@ if image is not None:
         final_status = "Ganas"
         final_color = "error"
 
-    st.markdown("## Hasil Deteksi")
+    st.markdown("### Hasil Deteksi")
 
     # ===== FINAL STATUS =====
     if final_color == "error":
